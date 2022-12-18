@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @title %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application' %>
+  <%= stylesheet_link_tag 'bootstrap.min' %>
+</head>
+
+<body>
+
+<%= render partial: 'layouts/header' %>
+
+<%= render partial: 'layouts/sign' %>
+
+<!-- content -->
+<div class="container text-center" style="margin-bottom: 10px; margin-top: 10px;">
+  <%= yield %>
+</div>
+
+<%= render partial: 'layouts/footer' %>
+
+<%= javascript_include_tag 'bootstrap.bundle.min' %>
+<%= javascript_include_tag 'rating' %>
+</body>
+</html>

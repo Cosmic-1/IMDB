@@ -1,0 +1,12 @@
+<!--user sign-->
+<div class="container text-center" style="margin-bottom: 10px; margin-top: 10px;">
+    <% if user_signed_in? %>
+    <p>Logged in as <strong><%= current_user.email %></strong>.</p>
+      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'btn btn-primary' %>
+    <br> <br>
+      <%= button_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-primary' %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary' %>
+      <%= link_to "Login", new_user_session_path, class: 'btn btn-primary' %>
+    <% end %>
+</div>

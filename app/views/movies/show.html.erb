@@ -1,0 +1,60 @@
+<% if user_signed_in? and current_user.admin? %>
+  <p style="color: green"><%= notice %></p>
+
+  <div>
+    <%= link_to "Edit this movie", edit_movie_path(@movie), class: 'btn btn-primary' %>
+    <%= link_to "Back to movies", movies_path, class: 'btn btn-primary' %>
+
+    <%= button_to "Destroy this movie", @movie, method: :delete, class: 'btn btn-danger' %>
+  </div>
+<% end %>
+
+<!-- Movie -->
+<div class="card" style="margin-bottom: 10px;">
+  <div class="card-img-top">
+    <% if @movie.poster.persisted? %>
+
+      <%= image_tag @movie.poster, class: "card-img-top", alt: @movie.title %>
+
+    <% else %>
+
+      <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
+           xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap"
+           preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="#868e96"></rect>
+        <text x="45%" y="50%" fill="#dee2e6"
+              dy=".3em">No Image
+        </text>
+      </svg>
+
+    <% end %>
+  </div>
+
+  <div class="card-body">
+    <h5 class="card-title"><%= @movie.title %></h5>
+    <p class="card-text"><%= @movie.body %></p>
+  </div>
+
+  <% if user_signed_in? %>
+
+    <% if current_user.can_rate? @movie %>
+
+      <div class="card-footer">
+        <%= form_with url: movie_ratings_path(@movie), id: 'sendRatingMovie' do |form| %>
+          <div class="rating">
+            <% (1..10).sort { |a, b| b <=> a }.each do |x| %>
+              <%= form.radio_button :value, x, id: x.to_s, onclick: 'setRating()' %>
+              <%= form.label x.to_s, '☆' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+    <% end %>
+
+  <% end %>
+  <div class="card-footer">
+    Rating: <%= @movie.rating_average %> | Category:  <%= link_to @movie.category.title, @movie.category, class: "link-primary" %>
+  </div>
+</div>
